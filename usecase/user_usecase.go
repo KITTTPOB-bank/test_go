@@ -1,0 +1,78 @@
+package usecase
+
+import (
+	"errors"
+	"os"
+	"time"
+
+	"github.com/KITTTPOB-bank/hospitalapi/initializers"
+	"github.com/KITTTPOB-bank/hospitalapi/models"
+	"github.com/KITTTPOB-bank/hospitalapi/repository"
+	"github.com/golang-jwt/jwt/v5"
+	"golang.org/x/crypto/bcrypt"
+)
+
+func init() {
+	initializers.LoadEnvs()
+	initializers.ConnectDB()
+}
+
+type UserUsecase interface {
+	Register(username, password, hospital string) (string, error) // คืน token เป็น string และ error
+}
+
+type userUsecase struct {
+	repo repository.UserRepository
+}
+
+func NewUserUsecase(r repository.UserRepository) UserUsecase {
+	return &userUsecase{repo: r}
+}
+
+func (u *userUsecase) Register(username, password, hospital string) (string, error) {
+	existing, _ := u.repo.FindByUsername(username, hospital)
+	if existing != nil {
+		return "", errors.New("username already used")
+	}
+
+	passwordHash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+
+	now := time.Now()
+	user := &models.User{
+		Username:  username,
+		Hospital:  hospital,
+		Password:  string(passwordHash),
+		CreatedAt: now,
+		UpdatedAt: now,
+	}
+
+	err = u.repo.Create(user)
+	if err != nil {
+		return "", err
+	}
+
+	token, err := generateToken(user)
+	if err != nil {
+		return "", err
+	}
+
+	return token, nil
+}
+
+func generateToken(user *models.User) (string, error) {
+	claims := jwt.MapClaims{
+		"user_id":  user.ID,
+		"username": user.Username,
+		"hospital": user.Hospital,
+		"exp":      time.Now().Add(time.Hour * 24).Unix(), // หมดอายุ 1 วัน
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	secret := os.Getenv("JWT_KEY")
+
+	return token.SignedString([]byte(secret))
+}
