@@ -50,7 +50,7 @@ func (u *userUsecase) Register(username, password, hospital string) (string, err
 		UpdatedAt: now,
 	}
 
-	err = u.repo.Create(user)
+	err = u.repo.GenerateStaff(user)
 	if err != nil {
 		return "", err
 	}
@@ -87,6 +87,7 @@ func generateToken(user *models.User) (string, error) {
 		"user_id":  user.ID,
 		"username": user.Username,
 		"hospital": user.Hospital,
+		"exp":      time.Now().Add(time.Hour * 24).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

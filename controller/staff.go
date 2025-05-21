@@ -25,7 +25,7 @@ func CreateStaff(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": user})
+	c.JSON(http.StatusOK, gin.H{"token": user})
 }
 
 func LoginStaff(c *gin.Context) {
@@ -43,5 +43,5 @@ func LoginStaff(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": user})
+	c.JSON(http.StatusOK, gin.H{"token": user})
 }

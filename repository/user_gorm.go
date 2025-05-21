@@ -20,6 +20,6 @@ func (r *userRepositoryGorm) FindByUsername(username, hospital string) (*models.
 	return &user, nil
 }
 
-func (r *userRepositoryGorm) Create(user *models.User) error {
+func (r *userRepositoryGorm) GenerateStaff(user *models.User) error {
 	return initializers.DB.Create(user).Error
 }

@@ -4,5 +4,10 @@ import "github.com/KITTTPOB-bank/hospitalapi/models"
 
 type UserRepository interface {
 	FindByUsername(username, hospital string) (*models.User, error)
-	Create(user *models.User) error
+	GenerateStaff(user *models.User) error
+}
+
+type PatientRepository interface {
+	FindByUsername(username, hospital string) (*models.User, error)
+	GeneratePatient(patient *models.Patient) error
 }
