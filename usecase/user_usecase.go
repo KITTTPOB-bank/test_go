@@ -18,7 +18,8 @@ func init() {
 }
 
 type UserUsecase interface {
-	Register(username, password, hospital string) (string, error) // คืน token เป็น string และ error
+	Register(username, password, hospital string) (string, error)
+	Login(username, password, hospital string) (string, error)
 }
 
 type userUsecase struct {
@@ -62,12 +63,30 @@ func (u *userUsecase) Register(username, password, hospital string) (string, err
 	return token, nil
 }
 
+func (u *userUsecase) Login(username, password, hospital string) (string, error) {
+	user, err := u.repo.FindByUsername(username, hospital)
+	if err != nil || user == nil {
+		return "", errors.New("invalid credentials")
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if err != nil {
+		return "", errors.New("invalid credentials")
+	}
+
+	token, err := generateToken(user)
+	if err != nil {
+		return "", err
+	}
+
+	return token, nil
+}
+
 func generateToken(user *models.User) (string, error) {
 	claims := jwt.MapClaims{
 		"user_id":  user.ID,
 		"username": user.Username,
 		"hospital": user.Hospital,
-		"exp":      time.Now().Add(time.Hour * 24).Unix(), // หมดอายุ 1 วัน
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

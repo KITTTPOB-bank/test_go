@@ -14,7 +14,7 @@ func SetupRouter(r *gin.Engine) {
 
 	staffGroup := r.Group("/staff")
 	{
-		staffGroup.POST("/create", controller.CreateUser)
-		// staffGroup.POST("/login")
+		staffGroup.POST("/create", controller.CreateStaff)
+		staffGroup.POST("/login", controller.LoginStaff)
 	}
 }

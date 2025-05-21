@@ -13,7 +13,7 @@ func NewUserRepository() UserRepository {
 
 func (r *userRepositoryGorm) FindByUsername(username, hospital string) (*models.User, error) {
 	var user models.User
-	result := initializers.DB.Where("username = ? AND hospital = ?", username, hospital).First(&user)
+	result := initializers.DB.Raw("SELECT * FROM staff WHERE username = ? AND hospital = ?", username, hospital).Scan(&user)
 	if result.Error != nil {
 		return nil, result.Error
 	}

@@ -9,8 +9,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CreateUser(c *gin.Context) {
-	var input models.Login
+func CreateStaff(c *gin.Context) {
+	var input models.Authentication
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -20,6 +20,24 @@ func CreateUser(c *gin.Context) {
 	userUC := usecase.NewUserUsecase(userRepo)
 
 	user, err := userUC.Register(input.Username, input.Password, input.Hospital)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": user})
+}
+
+func LoginStaff(c *gin.Context) {
+	var input models.Authentication
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	userRepo := repository.NewUserRepository()
+	userUC := usecase.NewUserUsecase(userRepo)
+
+	user, err := userUC.Login(input.Username, input.Password, input.Hospital)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
