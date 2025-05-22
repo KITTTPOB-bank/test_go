@@ -6,8 +6,3 @@ type UserRepository interface {
 	FindByUsername(username, hospital string) (*models.User, error)
 	GenerateStaff(user *models.User) error
 }
-
-type PatientRepository interface {
-	FindByUsername(username, hospital string) (*models.User, error)
-	GeneratePatient(patient *models.Patient) error
-}

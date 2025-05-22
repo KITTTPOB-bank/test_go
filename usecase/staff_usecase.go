@@ -84,7 +84,6 @@ func (u *userUsecase) Login(username, password, hospital string) (string, error)
 
 func generateToken(user *models.User) (string, error) {
 	claims := jwt.MapClaims{
-		"user_id":  user.ID,
 		"username": user.Username,
 		"hospital": user.Hospital,
 		"exp":      time.Now().Add(time.Hour * 24).Unix(),
