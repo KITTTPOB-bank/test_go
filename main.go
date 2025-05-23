@@ -21,7 +21,7 @@ func init() {
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
-// @description ตัวอย่างรูปแบบการใส่ข้อมูล "Bearer <token>"
+// @description ตัวอย่างรูปแบบการใส่ข้อมูล "Bearer \<token\>"
 func main() {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()

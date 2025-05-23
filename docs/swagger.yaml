@@ -170,7 +170,7 @@ paths:
       - staff
 securityDefinitions:
   BearerAuth:
-    description: ตัวอย่างรูปแบบการใส่ข้อมูล "Bearer <token>"
+    description: ตัวอย่างรูปแบบการใส่ข้อมูล "Bearer \<token\>"
     in: header
     name: Authorization
     type: apiKey

@@ -273,7 +273,7 @@ const docTemplate = `{
     },
     "securityDefinitions": {
         "BearerAuth": {
-            "description": "ตัวอย่างรูปแบบการใส่ข้อมูล \"Bearer \u003ctoken\u003e\"",
+            "description": "ตัวอย่างรูปแบบการใส่ข้อมูล \"Bearer \\\u003ctoken\\\u003e\"",
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"
