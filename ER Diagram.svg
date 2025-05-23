@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="338pt" height="504pt" viewBox="0.00 0.00 338.19 504.20">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 500.2)">
+<title>ER_Diagram</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-500.2 334.19,-500.2 334.19,4 -4,4"/>
+<!-- staff -->
+<g id="node1" class="node">
+<title>staff</title>
+<polygon fill="none" stroke="black" points="0,-0.5 0,-149.3 112.47,-149.3 112.47,-0.5 0,-0.5"/>
+<text text-anchor="middle" x="56.23" y="-132.7" font-family="Arial" font-size="14.00">id (PK)</text>
+<polyline fill="none" stroke="black" points="0,-124.5 112.47,-124.5"/>
+<text text-anchor="middle" x="56.23" y="-107.9" font-family="Arial" font-size="14.00">username (UQ)</text>
+<polyline fill="none" stroke="black" points="0,-99.7 112.47,-99.7"/>
+<text text-anchor="middle" x="56.23" y="-83.1" font-family="Arial" font-size="14.00">password</text>
+<polyline fill="none" stroke="black" points="0,-74.9 112.47,-74.9"/>
+<text text-anchor="middle" x="56.23" y="-58.3" font-family="Arial" font-size="14.00">hospital</text>
+<polyline fill="none" stroke="black" points="0,-50.1 112.47,-50.1"/>
+<text text-anchor="middle" x="56.23" y="-33.5" font-family="Arial" font-size="14.00">created_at</text>
+<polyline fill="none" stroke="black" points="0,-25.3 112.47,-25.3"/>
+<text text-anchor="middle" x="56.23" y="-8.7" font-family="Arial" font-size="14.00">updated_at</text>
+</g>
+<!-- patient -->
+<g id="node2" class="node">
+<title>patient</title>
+<polygon fill="none" stroke="black" points="206.79,-74.1 206.79,-495.7 330.19,-495.7 330.19,-74.1 206.79,-74.1"/>
+<text text-anchor="middle" x="268.49" y="-479.1" font-family="Arial" font-size="14.00">id (PK)</text>
+<polyline fill="none" stroke="black" points="206.79,-470.9 330.19,-470.9"/>
+<text text-anchor="middle" x="268.49" y="-454.3" font-family="Arial" font-size="14.00">first_name_th</text>
+<polyline fill="none" stroke="black" points="206.79,-446.1 330.19,-446.1"/>
+<text text-anchor="middle" x="268.49" y="-429.5" font-family="Arial" font-size="14.00">middle_name_th</text>
+<polyline fill="none" stroke="black" points="206.79,-421.3 330.19,-421.3"/>
+<text text-anchor="middle" x="268.49" y="-404.7" font-family="Arial" font-size="14.00">last_name_th</text>
+<polyline fill="none" stroke="black" points="206.79,-396.5 330.19,-396.5"/>
+<text text-anchor="middle" x="268.49" y="-379.9" font-family="Arial" font-size="14.00">first_name_en</text>
+<polyline fill="none" stroke="black" points="206.79,-371.7 330.19,-371.7"/>
+<text text-anchor="middle" x="268.49" y="-355.1" font-family="Arial" font-size="14.00">middle_name_en</text>
+<polyline fill="none" stroke="black" points="206.79,-346.9 330.19,-346.9"/>
+<text text-anchor="middle" x="268.49" y="-330.3" font-family="Arial" font-size="14.00">last_name_en</text>
+<polyline fill="none" stroke="black" points="206.79,-322.1 330.19,-322.1"/>
+<text text-anchor="middle" x="268.49" y="-305.5" font-family="Arial" font-size="14.00">date_of_birth</text>
+<polyline fill="none" stroke="black" points="206.79,-297.3 330.19,-297.3"/>
+<text text-anchor="middle" x="268.49" y="-280.7" font-family="Arial" font-size="14.00">patient_hn</text>
+<polyline fill="none" stroke="black" points="206.79,-272.5 330.19,-272.5"/>
+<text text-anchor="middle" x="268.49" y="-255.9" font-family="Arial" font-size="14.00">national_id (UQ)</text>
+<polyline fill="none" stroke="black" points="206.79,-247.7 330.19,-247.7"/>
+<text text-anchor="middle" x="268.49" y="-231.1" font-family="Arial" font-size="14.00">passport_id (UQ)</text>
+<polyline fill="none" stroke="black" points="206.79,-222.9 330.19,-222.9"/>
+<text text-anchor="middle" x="268.49" y="-206.3" font-family="Arial" font-size="14.00">phone_number</text>
+<polyline fill="none" stroke="black" points="206.79,-198.1 330.19,-198.1"/>
+<text text-anchor="middle" x="268.49" y="-181.5" font-family="Arial" font-size="14.00">email</text>
+<polyline fill="none" stroke="black" points="206.79,-173.3 330.19,-173.3"/>
+<text text-anchor="middle" x="268.49" y="-156.7" font-family="Arial" font-size="14.00">gender</text>
+<polyline fill="none" stroke="black" points="206.79,-148.5 330.19,-148.5"/>
+<text text-anchor="middle" x="268.49" y="-131.9" font-family="Arial" font-size="14.00">staff_id (FK)</text>
+<polyline fill="none" stroke="black" points="206.79,-123.7 330.19,-123.7"/>
+<text text-anchor="middle" x="268.49" y="-107.1" font-family="Arial" font-size="14.00">created_at</text>
+<polyline fill="none" stroke="black" points="206.79,-98.9 330.19,-98.9"/>
+<text text-anchor="middle" x="268.49" y="-82.3" font-family="Arial" font-size="14.00">updated_at</text>
+</g>
+<!-- staff&#45;&gt;patient -->
+<g id="edge1" class="edge">
+<title>staff:id-&gt;patient:staff_id</title>
+<path fill="none" stroke="black" d="M112.47,-136.9C150.79,-136.9 162.83,-136.23 196.64,-136.12"/>
+<polygon fill="black" stroke="black" points="196.45,-136.12 206.46,-140.6 201.79,-136.11 206.12,-136.1 206.12,-136.1 206.12,-136.1 201.79,-136.11 206.44,-131.6 196.45,-136.12"/>
+<text text-anchor="middle" x="159.63" y="-141.03" font-family="Times,serif" font-size="14.00">1-to-many</text>
+</g>
+</g>
+</svg>

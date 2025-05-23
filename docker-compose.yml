@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: hospitaldb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  goapp:
+    build: .
+    ports:
+      - "8010:8010"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"          
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - goapp
+
+volumes:
+  pgdata:
