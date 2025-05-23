@@ -31,8 +31,8 @@ func NewUserUsecase(r repository.UserRepository) UserUsecase {
 }
 
 func (u *userUsecase) Register(username, password, hospital string) (string, error) {
-	existing, _ := u.repo.FindByUsername(username, hospital)
-	if existing != nil {
+	staff, _ := u.repo.FindByUsername(username, hospital)
+	if staff != nil {
 		return "", errors.New("username already used")
 	}
 
@@ -64,17 +64,17 @@ func (u *userUsecase) Register(username, password, hospital string) (string, err
 }
 
 func (u *userUsecase) Login(username, password, hospital string) (string, error) {
-	user, err := u.repo.FindByUsername(username, hospital)
-	if err != nil || user == nil {
+	staff, err := u.repo.FindByUsername(username, hospital)
+	if err != nil || staff == nil {
 		return "", errors.New("invalid credentials")
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	err = bcrypt.CompareHashAndPassword([]byte(staff.Password), []byte(password))
 	if err != nil {
 		return "", errors.New("invalid Password")
 	}
 
-	token, err := generateToken(user)
+	token, err := generateToken(staff)
 	if err != nil {
 		return "", err
 	}

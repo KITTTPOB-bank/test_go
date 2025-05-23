@@ -14,7 +14,7 @@ func authorization() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Missing Authorization"})
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Missing Authorization or `Bearer`"})
 			return
 		}
 

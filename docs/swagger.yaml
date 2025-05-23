@@ -1,0 +1,177 @@
+definitions:
+  models.Authentication:
+    properties:
+      hospital:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  models.CreatePatientRequest:
+    properties:
+      date_of_birth:
+        type: string
+      email:
+        type: string
+      first_name_en:
+        type: string
+      first_name_th:
+        type: string
+      gender:
+        enum:
+        - M
+        - F
+        type: string
+      last_name_en:
+        type: string
+      last_name_th:
+        type: string
+      middle_name_en:
+        type: string
+      middle_name_th:
+        type: string
+      national_id:
+        type: string
+      passport_id:
+        type: string
+      patient_hn:
+        type: string
+      phone_number:
+        type: string
+    required:
+    - first_name_th
+    - last_name_th
+    type: object
+  models.CreatePatientRequestGroup:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.CreatePatientRequest'
+        type: array
+    type: object
+  models.PatientRequest:
+    properties:
+      date_of_birth:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      middle_name:
+        type: string
+      national_id:
+        type: string
+      passport_id:
+        type: string
+      phone_number:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /patient/search:
+    post:
+      consumes:
+      - application/json
+      description: ค้นหาผู้ป่วยโดยอ้างอิงจาก รหัส staff
+      parameters:
+      - description: Patient search criteria
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.PatientRequest'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: Query patient by staff criteria
+      tags:
+      - patient
+  /patient/search/{id}:
+    get:
+      consumes:
+      - application/json
+      description: ดึงข้อมูลผู้ป่วยโดยใช้ national_id หรือ passport_id
+      parameters:
+      - description: Patient ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Query patient by ID
+      tags:
+      - patient
+  /staff/create:
+    post:
+      consumes:
+      - application/json
+      description: สมัครสมาชิก ของ staff
+      parameters:
+      - description: Staff registration data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.Authentication'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create a new staff account
+      tags:
+      - staff
+  /staff/login:
+    post:
+      consumes:
+      - application/json
+      description: เข้าสู่ระบบ
+      parameters:
+      - description: Login credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.Authentication'
+      produces:
+      - application/json
+      responses: {}
+      summary: Staff login
+      tags:
+      - staff
+  /staff/patients:
+    post:
+      consumes:
+      - application/json
+      description: เพิ่มผู้ป่วย
+      parameters:
+      - description: List of new patients
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreatePatientRequestGroup'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - BearerAuth: []
+      summary: Add multiple patients
+      tags:
+      - staff
+securityDefinitions:
+  BearerAuth:
+    description: ตัวอย่างรูปแบบการใส่ข้อมูล "Bearer <token>"
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

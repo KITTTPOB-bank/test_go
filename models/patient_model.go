@@ -2,6 +2,10 @@ package models
 
 import "time"
 
+type CreatePatientRequestGroup struct {
+	Data []CreatePatientRequest `json:"data"`
+}
+
 type CreatePatientRequest struct {
 	FirstNameTH  string `json:"first_name_th" binding:"required"`
 	MiddleNameTH string `json:"middle_name_th,omitempty"`

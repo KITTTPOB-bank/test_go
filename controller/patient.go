@@ -11,6 +11,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// QueryPatientByID godoc
+// @Summary Query patient by ID
+// @Description ดึงข้อมูลผู้ป่วยโดยใช้ national_id หรือ passport_id
+// @Tags patient
+// @Accept json
+// @Produce json
+// @Param id path string true "Patient ID"
+// @Router /patient/search/{id} [get]
 func QueryPatientByID(c *gin.Context) {
 	idVal := c.Param("id")
 
@@ -40,6 +48,15 @@ func QueryPatientByID(c *gin.Context) {
 
 }
 
+// QueryPatientByStaff godoc
+// @Summary Query patient by staff criteria
+// @Description ค้นหาผู้ป่วยโดยอ้างอิงจาก รหัส staff
+// @Tags patient
+// @Accept json
+// @Produce json
+// @Param request body models.PatientRequest true "Patient search criteria"
+// @Router /patient/search [post]
+// @Security BearerAuth
 func QueryPatientByStaff(c *gin.Context) {
 	var input models.PatientRequest
 	decoder := json.NewDecoder(c.Request.Body)
@@ -69,6 +86,16 @@ func QueryPatientByStaff(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": msg})
 
 }
+
+// AddPatient godoc
+// @Summary Add multiple patients
+// @Description เพิ่มผู้ป่วย
+// @Tags staff
+// @Accept json
+// @Produce json
+// @Param request body models.CreatePatientRequestGroup true "List of new patients"
+// @Router /staff/patients [post]
+// @Security BearerAuth
 func AddPatient(c *gin.Context) {
 	var input struct {
 		Data []models.CreatePatientRequest `json:"data"`

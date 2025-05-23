@@ -12,6 +12,7 @@ import (
 	"github.com/KITTTPOB-bank/hospitalapi/usecase"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
+
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -171,26 +172,6 @@ func setupRouterQueryPatientByID() *gin.Engine {
 	return r
 }
 
-func mockAuthorization() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Set("username", "testuser")
-		c.Set("hospital", "testhospital")
-		c.Next()
-	}
-}
-func generateTestToken() string {
-	secret := []byte("MAPLE_SYRUB")
-
-	claims := jwt.MapClaims{
-		"username": "testuser",
-		"hospital": "testhospital",
-		"exp":      time.Now().Add(time.Hour).Unix(),
-	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, _ := token.SignedString(secret)
-	return tokenString
-}
-
 func TestQueryPatientByID_Success(t *testing.T) {
 	router := setupRouterQueryPatientByID()
 
@@ -343,4 +324,25 @@ func TestLogin_WrongPassword(t *testing.T) {
 
 	assert.Equal(t, http.StatusBadRequest, w.Code)
 	assert.Contains(t, w.Body.String(), "invalid Password")
+}
+
+// mock auth
+func mockAuthorization() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Set("username", "testuser")
+		c.Set("hospital", "testhospital")
+		c.Next()
+	}
+}
+func generateTestToken() string {
+	secret := []byte("MAPLE_SYRUB")
+
+	claims := jwt.MapClaims{
+		"username": "testuser",
+		"hospital": "testhospital",
+		"exp":      time.Now().Add(time.Hour).Unix(),
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, _ := token.SignedString(secret)
+	return tokenString
 }

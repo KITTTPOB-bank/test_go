@@ -1,0 +1,271 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/patient/search": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "ค้นหาผู้ป่วยโดยอ้างอิงจาก รหัส staff",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "patient"
+                ],
+                "summary": "Query patient by staff criteria",
+                "parameters": [
+                    {
+                        "description": "Patient search criteria",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PatientRequest"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/patient/search/{id}": {
+            "get": {
+                "description": "ดึงข้อมูลผู้ป่วยโดยใช้ national_id หรือ passport_id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "patient"
+                ],
+                "summary": "Query patient by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Patient ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/staff/create": {
+            "post": {
+                "description": "สมัครสมาชิก ของ staff",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staff"
+                ],
+                "summary": "Create a new staff account",
+                "parameters": [
+                    {
+                        "description": "Staff registration data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Authentication"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/staff/login": {
+            "post": {
+                "description": "เข้าสู่ระบบ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staff"
+                ],
+                "summary": "Staff login",
+                "parameters": [
+                    {
+                        "description": "Login credentials",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Authentication"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/staff/patients": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "เพิ่มผู้ป่วย",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staff"
+                ],
+                "summary": "Add multiple patients",
+                "parameters": [
+                    {
+                        "description": "List of new patients",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreatePatientRequestGroup"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    },
+    "definitions": {
+        "models.Authentication": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "hospital": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CreatePatientRequest": {
+            "type": "object",
+            "required": [
+                "first_name_th",
+                "last_name_th"
+            ],
+            "properties": {
+                "date_of_birth": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name_en": {
+                    "type": "string"
+                },
+                "first_name_th": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string",
+                    "enum": [
+                        "M",
+                        "F"
+                    ]
+                },
+                "last_name_en": {
+                    "type": "string"
+                },
+                "last_name_th": {
+                    "type": "string"
+                },
+                "middle_name_en": {
+                    "type": "string"
+                },
+                "middle_name_th": {
+                    "type": "string"
+                },
+                "national_id": {
+                    "type": "string"
+                },
+                "passport_id": {
+                    "type": "string"
+                },
+                "patient_hn": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CreatePatientRequestGroup": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.CreatePatientRequest"
+                    }
+                }
+            }
+        },
+        "models.PatientRequest": {
+            "type": "object",
+            "properties": {
+                "date_of_birth": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "middle_name": {
+                    "type": "string"
+                },
+                "national_id": {
+                    "type": "string"
+                },
+                "passport_id": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "description": "ตัวอย่างรูปแบบการใส่ข้อมูล \"Bearer \u003ctoken\u003e\"",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

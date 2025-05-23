@@ -67,7 +67,7 @@ func (u *patientUsecase) AddNewPatient(req models.CreatePatientRequest, username
 		return "", err
 	}
 
-	return "Created Sussed", nil
+	return "created successfully", nil
 }
 
 func (u *patientUsecase) SearchPatient(id string) (*models.Patient, error) {

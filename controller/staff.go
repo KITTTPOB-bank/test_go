@@ -9,6 +9,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateStaff godoc
+// @Summary Create a new staff account
+// @Description สมัครสมาชิก ของ staff
+// @Tags staff
+// @Accept json
+// @Produce json
+// @Param request body models.Authentication true "Staff registration data"
+// @Router /staff/create [post]
 func CreateStaff(c *gin.Context) {
 	var input models.Authentication
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -28,6 +36,14 @@ func CreateStaff(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"token": user})
 }
 
+// LoginStaff godoc
+// @Summary Staff login
+// @Description เข้าสู่ระบบ
+// @Tags staff
+// @Accept json
+// @Produce json
+// @Param request body models.Authentication true "Login credentials"
+// @Router /staff/login [post]
 func LoginStaff(c *gin.Context) {
 	var input models.Authentication
 	if err := c.ShouldBindJSON(&input); err != nil {
