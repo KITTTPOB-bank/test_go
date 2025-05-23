@@ -17,7 +17,7 @@ import (
 // @Tags patient
 // @Accept json
 // @Produce json
-// @Param id path string true "Patient ID"
+// @Param id path string true "Passport ID OR National ID"
 // @Router /patient/search/{id} [get]
 func QueryPatientByID(c *gin.Context) {
 	idVal := c.Param("id")
