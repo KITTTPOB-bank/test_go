@@ -46,7 +46,7 @@ func QueryPatientByStaff(c *gin.Context) {
 	decoder.DisallowUnknownFields()
 
 	if err := decoder.Decode(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "invalid request body"})
 		return
 	}
 

@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"time"
 
@@ -32,6 +33,7 @@ func NewUserUsecase(r repository.UserRepository) UserUsecase {
 
 func (u *userUsecase) Register(username, password, hospital string) (string, error) {
 	existing, _ := u.repo.FindByUsername(username, hospital)
+	fmt.Println(existing)
 	if existing != nil {
 		return "", errors.New("username already used")
 	}
@@ -71,7 +73,7 @@ func (u *userUsecase) Login(username, password, hospital string) (string, error)
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil {
-		return "", errors.New("invalid credentials")
+		return "", errors.New("invalid Password")
 	}
 
 	token, err := generateToken(user)

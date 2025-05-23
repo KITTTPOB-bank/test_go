@@ -18,3 +18,7 @@ type Authentication struct {
 	Password string `json:"password" binding:"required"`
 	Hospital string `json:"hospital"`
 }
+
+func (User) TableName() string {
+	return "staff"
+}

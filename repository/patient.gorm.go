@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"fmt"
+
 	"github.com/KITTTPOB-bank/hospitalapi/initializers"
 	"github.com/KITTTPOB-bank/hospitalapi/models"
 )
@@ -58,6 +60,7 @@ func (r *patientRepositoryGorm) FindPatients(input models.PatientRequest, staffI
 	}
 
 	if err := query.Find(&patients).Error; err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 
