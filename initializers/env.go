@@ -17,9 +17,9 @@ func LoadEnvs() {
 		filepath.Join(base, ".env"),
 	} {
 		if err := godotenv.Load(p); err == nil {
-			log.Printf("✅ loaded .env from: %s", p)
+			log.Printf("loaded .env from: %s", p)
 			return
 		}
 	}
-	log.Println("⚠️ no .env file loaded")
+	log.Println("no .env file loaded")
 }

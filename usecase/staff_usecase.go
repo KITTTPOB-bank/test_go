@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"time"
 
@@ -33,7 +32,6 @@ func NewUserUsecase(r repository.UserRepository) UserUsecase {
 
 func (u *userUsecase) Register(username, password, hospital string) (string, error) {
 	existing, _ := u.repo.FindByUsername(username, hospital)
-	fmt.Println(existing)
 	if existing != nil {
 		return "", errors.New("username already used")
 	}

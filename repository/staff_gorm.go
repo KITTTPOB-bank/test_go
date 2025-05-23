@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"fmt"
-
 	"github.com/KITTTPOB-bank/hospitalapi/initializers"
 	"github.com/KITTTPOB-bank/hospitalapi/models"
 )
@@ -17,7 +15,6 @@ func (r *userRepositoryGorm) FindByUsername(username, hospital string) (*models.
 	var user *models.User
 
 	result := initializers.DB.Raw("SELECT * FROM staff WHERE username = ? AND hospital = ?", username, hospital).Scan(&user)
-	fmt.Println(user)
 	if result.Error != nil {
 		return nil, result.Error
 	}
