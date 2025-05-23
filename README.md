@@ -1,5 +1,5 @@
 
-API สำหรับจัดการข้อมูลผู้ป่วย ด้วยระบบ Backend ที่สามารถรันผ่าน Docker Compose และให้บริการ API พร้อม Swagger UI
+API สำหรับจัดการข้อมูลผู้ป่วย พร้อม Swagger UI
 
 ## Start
 
